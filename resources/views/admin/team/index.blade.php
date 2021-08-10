@@ -27,8 +27,8 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="Team" class="table text-center">
+                            {{-- <div class="table-responsive"> --}}
+                                <table id="Team" class="table table-responsive-xl text-center">
                                     <thead>
                                         <tr>
                                             <th>S.N</th>
@@ -69,7 +69,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            </div>
+                            {{-- </div> --}}
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -82,7 +82,64 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $("#Team").DataTable();
+            $("#Team").DataTable({
+                "responsive": false,
+                "lengthChange": true,
+                "autoWidth": false,
+                "dom": 'lBfrtip',
+                "buttons": [{
+                        extend: 'collection',
+                        text: "<i class='fa fa-ellipsis-v'></i>",
+                        buttons: [{
+                                extend: 'copy',
+                                exportOptions: {
+                                    columns: 'th:not(:last-child)'
+                                }
+                            },
+                            {
+                                extend: 'csv',
+
+                                exportOptions: {
+                                    columns: 'th:not(:last-child)'
+                                }
+                            },
+                            {
+                                extend: 'excel',
+
+                                exportOptions: {
+                                    columns: 'th:not(:last-child)'
+                                }
+                            },
+                            {
+                                extend: 'pdf',
+
+                                exportOptions: {
+                                    columns: 'th:not(:last-child)'
+                                }
+                            },
+                            {
+                                extend: 'print',
+
+                                exportOptions: {
+                                    columns: 'th:not(:last-child)'
+                                },
+
+                            },
+                        ],
+
+                    },
+                    {
+                        extend: 'colvis',
+                        columns: ':not(.hidden)'
+                    }
+                ],
+                "language": {
+                    "infoEmpty": "No entries to show",
+                    "emptyTable": "No data available",
+                    "zeroRecords": "No records to display",
+                }
+            });
+            dataTablePosition();
         });
     </script>
 @endsection

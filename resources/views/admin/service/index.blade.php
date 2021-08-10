@@ -1,13 +1,14 @@
 @extends('layouts.admin.app')
-@section('title', 'User')
-@section('user', 'active')
+@section('title', 'Service')
+@section('service', 'active')
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row col-12 mb-2">
                 <div class="col-sm-6">
-                    <h1>All Users</h1>
+                    <h1>Service</h1>
                 </div>
+
             </div>
         </div>
     </section>
@@ -16,48 +17,43 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+
                         <div class="card-header">
                             <div class="card-title float-right">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus"></i> Add User
+                                <a href="{{ route('admin.service.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Add Service
                                 </a>
                             </div>
                         </div>
+                        <!-- /.card-header -->
                         <div class="card-body">
 
-                            <table id="Admin" class="table table-responsive-xl">
+                            <table id="Service" class="table table-responsive-xl text-center">
                                 <thead>
                                     <tr>
                                         <th>S.N</th>
-                                        <th>Avatar</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Address</th>
+                                        <th>Logo</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
                                         <th class="hidden">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $key => $user)
+                                    @foreach ($services as $key => $service)
                                         <tr>
                                             <td>{{ ++$id }}</td>
                                             <td>
-                                                <img src="{{ $user->userImg($user->avatar) }}" class="imageSize" alt="">
+                                                <img src="{{ $service->getLogo($service->logo) }}" class="imgSize" alt="">
                                             </td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->phone ? $user->phone : '' }}</td>
-                                            <td>{{ $user->address }}</td>
-
+                                            <td>{{ $service->category->title }}</td>
+                                            <td>{{ $service->status ? "Active" : "Inactive" }}</td>
                                             <td>
-                                                <div class="d-inline-flex">
-
-                                                    <a href="{{ route('admin.user.edit', $user->id) }}"
-                                                        class="btn btn-primary btn-sm" title="Edit User">
-                                                        <i class="fa fa-edit iCheck"></i>&nbsp;Edit User
-                                                    </a>
-
-                                                </div>
+                                            <div class="d-inline-flex">
+                                                <a href="{{ route("admin.service.edit", $service->id) }}"
+                                                    class="btn btn-sm btn-primary" title="Edit Service">
+                                                    <i class="fa fa-edit iCheck"></i> Edit
+                                                </a>
+                                            </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -65,17 +61,21 @@
                             </table>
 
                         </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
         </div>
     </section>
 @endsection
 @section('scripts')
+
     <script>
         $(document).ready(function() {
-            $("#Admin").DataTable({
+            $("#Service").DataTable({
                 "responsive": false,
+                "lengthChange": true,
                 "autoWidth": false,
                 "dom": 'lBfrtip',
                 "buttons": [{
@@ -124,7 +124,6 @@
                         columns: ':not(.hidden)'
                     }
                 ],
-
                 "language": {
                     "infoEmpty": "No entries to show",
                     "emptyTable": "No data available",

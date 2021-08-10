@@ -1,9 +1,14 @@
 <?php
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 $menu = 'menu-open';
 $active = 'active menu-open';
 
+$client= Request::is("admin/client*");
+$service = Request::is("admin/service*");
+$about = Request::is("admin/about*");
+$general = Request::is("admin/company-information*");
+$socialNav = Request::is("admin/social*");
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{route('admin.dashboard')}}" class="brand-link">

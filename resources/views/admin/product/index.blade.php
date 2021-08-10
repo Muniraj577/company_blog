@@ -27,41 +27,42 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-
-                            <table id="Product" class="table text-center">
-                                <thead>
-                                    <tr>
-                                        <th>S.N</th>
-                                        <th>Logo</th>
-                                        <th>Title</th>
-                                        <th>Url</th>
-                                        <th>Status</th>
-                                        <th class="hidden">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($products as $key => $product)
+                            {{-- <div class="table-responsive"> --}}
+                                <table id="Product" class="table table-responsive-xl text-center">
+                                    <thead>
                                         <tr>
-                                            <td>{{ ++$id }}</td>
-                                            <td>
-                                                <img src="{{ $product->getLogo($product->logo) }}" class="imgSize" alt="">
-                                            </td>
-                                            <td>{{ $product->title }}</td>
-                                            <td>{{ $product->url }}</td>
-                                            <td>{{ $product->status ? "Active" : "Inactive" }}</td>
-                                            <td>
-                                            <div class="d-inline-flex">
-                                                <a href="{{ route("admin.product.edit", $product->id) }}"
-                                                    class="btn btn-sm btn-primary" title="Edit Product">
-                                                    <i class="fa fa-edit iCheck"></i> Edit
-                                                </a>
-                                            </div>
-                                            </td>
+                                            <th>S.N</th>
+                                            <th>Logo</th>
+                                            <th>Title</th>
+                                            <th>Url</th>
+                                            <th>Status</th>
+                                            <th class="hidden">Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($products as $key => $product)
+                                            <tr>
+                                                <td>{{ ++$id }}</td>
+                                                <td>
+                                                    <img src="{{ $product->getLogo($product->logo) }}" class="imgSize"
+                                                        alt="">
+                                                </td>
+                                                <td>{{ $product->title }}</td>
+                                                <td>{{ $product->url }}</td>
+                                                <td>{{ $product->status ? 'Active' : 'Inactive' }}</td>
+                                                <td>
+                                                    <div class="d-inline-flex">
+                                                        <a href="{{ route('admin.product.edit', $product->id) }}"
+                                                            class="btn btn-sm btn-primary" title="Edit Product">
+                                                            <i class="fa fa-edit iCheck"></i> Edit
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            {{-- </div> --}}
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -76,7 +77,7 @@
     <script>
         $(document).ready(function() {
             $("#Product").DataTable({
-                "responsive": true,
+                "responsive": false,
                 "lengthChange": true,
                 "autoWidth": false,
                 "dom": 'lBfrtip',

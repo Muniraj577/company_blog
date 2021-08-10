@@ -1,13 +1,14 @@
 @extends('layouts.admin.app')
-@section('title', 'User')
-@section('user', 'active')
+@section('title', 'Social')
+@section('social', 'active')
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
             <div class="row col-12 mb-2">
                 <div class="col-sm-6">
-                    <h1>All Users</h1>
+                    <h1>Social</h1>
                 </div>
+
             </div>
         </div>
     </section>
@@ -16,66 +17,63 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+
                         <div class="card-header">
                             <div class="card-title float-right">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-primary">
-                                    <i class="fas fa-plus"></i> Add User
+                                @if(count($socials) > 0)
+                                <a href="{{ route('admin.social.edit') }}" class="btn btn-primary">
+                                    <i class="fas fa-edit"></i> Edit Social
                                 </a>
+                                @else
+                                <a href="{{ route('admin.social.create') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Add Social
+                                </a>
+                                @endif
                             </div>
                         </div>
+                        <!-- /.card-header -->
                         <div class="card-body">
 
-                            <table id="Admin" class="table table-responsive-xl">
+                            <table id="Social" class="table table-responsive-xl text-center">
                                 <thead>
                                     <tr>
                                         <th>S.N</th>
-                                        <th>Avatar</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Address</th>
-                                        <th class="hidden">Action</th>
+                                        <th>Facebook Url</th>
+                                        <th>Twitter Url</th>
+                                        <th>Linkedin Url</th>
+                                        <th>Instagram Url</th>
+                                        {{-- <th class="hidden">Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $key => $user)
+                                    @foreach ($socials as $key => $social)
                                         <tr>
                                             <td>{{ ++$id }}</td>
-                                            <td>
-                                                <img src="{{ $user->userImg($user->avatar) }}" class="imageSize" alt="">
-                                            </td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->phone ? $user->phone : '' }}</td>
-                                            <td>{{ $user->address }}</td>
-
-                                            <td>
-                                                <div class="d-inline-flex">
-
-                                                    <a href="{{ route('admin.user.edit', $user->id) }}"
-                                                        class="btn btn-primary btn-sm" title="Edit User">
-                                                        <i class="fa fa-edit iCheck"></i>&nbsp;Edit User
-                                                    </a>
-
-                                                </div>
-                                            </td>
+                                            <td>{{ $social->facebook_url }}</td>
+                                            <td>{{ $social->twitter_url }}</td>
+                                            <td>{{ $social->linkedin_url }}</td>
+                                            <td>{{ $social->insta_url }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
 
                         </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
         </div>
     </section>
 @endsection
 @section('scripts')
+
     <script>
         $(document).ready(function() {
-            $("#Admin").DataTable({
+            $("#Social").DataTable({
                 "responsive": false,
+                "lengthChange": true,
                 "autoWidth": false,
                 "dom": 'lBfrtip',
                 "buttons": [{
@@ -124,7 +122,6 @@
                         columns: ':not(.hidden)'
                     }
                 ],
-
                 "language": {
                     "infoEmpty": "No entries to show",
                     "emptyTable": "No data available",
